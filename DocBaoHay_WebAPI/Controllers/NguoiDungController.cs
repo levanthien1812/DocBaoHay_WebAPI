@@ -38,5 +38,32 @@ namespace DocBaoHay_WebAPI.Controllers
                 return null;
             }
         }
+
+        [Route("dang-nhap", Name = "DangNhap")]
+        [HttpGet]
+        public IHttpActionResult DangNhap(string email, string matKhau)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "Email", email },
+                    { "MatKhau", matKhau }
+                };
+                DataTable result = Database.Database.ReadTable("DangNhap", param);
+                NguoiDung nd = new NguoiDung();
+                if (result.Rows.Count > 0) { 
+                    nd.ID = int.Parse(result.Rows[0]["ID"].ToString());
+                    nd.TenDangNhap = result.Rows[0]["TenDangNhap"].ToString();
+                    nd.HoTen = result.Rows[0]["HoTen"].ToString();
+                    nd.Email = result.Rows[0]["Email"].ToString();
+                    nd.MatKhau = result.Rows[0]["MatKhau"].ToString();
+                }
+                return Ok(nd);
+            } catch
+            {
+                return NotFound();
+            }
+        }
     }
 }
