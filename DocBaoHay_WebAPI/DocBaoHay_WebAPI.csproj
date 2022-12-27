@@ -158,6 +158,7 @@
     <Compile Include="Controllers\BaiBaoController.cs" />
     <Compile Include="Controllers\ChuDeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NguoiDungController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Global.asax.cs">
@@ -167,6 +168,7 @@
     <Compile Include="Models\ChuDe.cs" />
     <Compile Include="Models\NguoiDung.cs" />
     <Compile Include="Models\TacGia.cs" />
+    <Compile Include="Models\TheoDoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -178,13 +180,19 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\bong-da.png" />
-    <Content Include="Images\cong-nghe.jpg" />
-    <Content Include="Images\doc-la.jpg" />
-    <Content Include="Images\giai-tri.jpg" />
-    <Content Include="Images\phap-luat.jpg" />
-    <Content Include="Images\the-gioi.jpg" />
-    <Content Include="Images\tinh-yeu.jpg" />
+    <Content Include="Images\ChuDe\bong-da.png" />
+    <Content Include="Images\ChuDe\cong-nghe.jpg" />
+    <Content Include="Images\ChuDe\doc-la.jpg" />
+    <Content Include="Images\ChuDe\giai-tri.jpg" />
+    <Content Include="Images\ChuDe\kinh-te.jpg" />
+    <Content Include="Images\ChuDe\phap-luat.jpg" />
+    <Content Include="Images\ChuDe\suc-khoe.jpg" />
+    <Content Include="Images\ChuDe\the-gioi.jpg" />
+    <Content Include="Images\ChuDe\tinh-yeu.jpg" />
+    <Content Include="Images\ChuDe\xa-hoi.jpg" />
+    <Content Include="Images\TacGia\phap-luat.png" />
+    <Content Include="Images\TacGia\zing.png" />
+    <Content Include="Media\BaiBao\content_1.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -212,7 +220,6 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="getAllChuDe.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
