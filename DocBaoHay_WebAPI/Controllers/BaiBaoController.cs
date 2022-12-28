@@ -37,6 +37,16 @@ namespace DocBaoHay_WebAPI.Controllers
                     { "ChuDeId", ChuDe }
                 };
                 DataTable result = Database.Database.ReadTable("SelectBaiBaoByChuDe", param);
+                result.Columns.Add("KhoangTG", typeof(String));
+                foreach (DataRow res in result.Rows)
+                {
+                    Dictionary<string, object> baiBaoId = new Dictionary<string, object>
+                    {
+                        {"baiBaoId", int.Parse(res["Id"].ToString()) }
+                    };
+                    res["KhoangTG"] = Database.Database.ExecuteCommand("TinhKhoangThoiGian", baiBaoId, 2).ToString();
+                }
+
                 return Ok(result);
             }
             catch

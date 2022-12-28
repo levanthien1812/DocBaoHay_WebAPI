@@ -26,7 +26,7 @@ namespace DocBaoHay_WebAPI.Controllers
                     { "Email", nguoiDung.Email },
                     { "MatKhau", nguoiDung.MatKhau }
                 };
-                int result = int.Parse(Database.Database.ExecuteCommand("TaoNguoiDung", param).ToString());
+                int result = int.Parse(Database.Database.ExecuteCommand("TaoNguoiDung", param, 1).ToString());
                 if (result == 1)
                 {
                     return nguoiDung;
@@ -58,6 +58,9 @@ namespace DocBaoHay_WebAPI.Controllers
                     nd.HoTen = result.Rows[0]["HoTen"].ToString();
                     nd.Email = result.Rows[0]["Email"].ToString();
                     nd.MatKhau = result.Rows[0]["MatKhau"].ToString();
+                } else
+                {
+                    nd = null;
                 }
                 return Ok(nd);
             } catch

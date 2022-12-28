@@ -10,7 +10,7 @@ namespace DocBaoHay_WebAPI.Models
         public string TieuDe { get; set; }
         public string Thumbnail { get; set; }
         public string Content { get; set; }
-        public DateTime ThoiGianDang { get; set; }
+        public string KhoangTG { get; set; }
         public int ChuDe { get; set; }
         public int TacGia { get; set; }
     }

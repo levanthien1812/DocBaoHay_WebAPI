@@ -47,7 +47,7 @@ namespace DocBaoHay_WebAPI.Database
             return table;
         }
 
-        public static object ExecuteCommand(string StoredProcedureName, Dictionary<string, object> StoredProcedureParameters = null)
+        public static object ExecuteCommand(string StoredProcedureName, Dictionary<string, object> StoredProcedureParameters = null, int OutputType = 1)
         {
             try
             {
@@ -79,7 +79,16 @@ namespace DocBaoHay_WebAPI.Database
                         }
                     }
                     // Set @Result as an output parameter in all procedures
-                    sqlCommand.Parameters.Add("@Result", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    // Output is integer
+                    if (OutputType == 1)
+                    {
+                        sqlCommand.Parameters.Add("@Result", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    } 
+                    // Output is string
+                    else if (OutputType == 2)
+                    {
+                        sqlCommand.Parameters.Add("@Result", SqlDbType.NVarChar, -1).Direction = ParameterDirection.Output;
+                    }
 
                     sqlCommand.ExecuteNonQuery();
                     // Get the value of @Result ouput
