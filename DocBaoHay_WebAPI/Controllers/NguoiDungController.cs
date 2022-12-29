@@ -68,5 +68,42 @@ namespace DocBaoHay_WebAPI.Controllers
                 return NotFound();
             }
         }
+
+        [Route("{nguoiDungId}/theo-doi/tac-gia")]
+        [HttpGet]
+        public IHttpActionResult GetFollowedAuthors (int nguoiDungId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId }
+                };
+                DataTable result = Database.Database.ReadTable("TimTacGiaTheoDoi", param);
+                return Ok(result);
+            } catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("{nguoiDungId}/theo-doi/tac-gia/{tacGiaId}")]
+        [HttpDelete]
+        public int UnfollowedAuthors (int nguoiDungId, int tacGiaId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId },
+                    { "TacGiaId" , tacGiaId }
+                };
+                Database.Database.ExecuteCommand("XoaTheoDoiTacGia", param);
+                return 1;
+            } catch
+            {
+                return -1;
+            }
+        }
     }
 }

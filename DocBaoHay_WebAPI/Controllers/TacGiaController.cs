@@ -23,5 +23,19 @@ namespace DocBaoHay_WebAPI.Controllers
             int result = int.Parse(Database.Database.ExecuteCommand("ThemTheoDoiTacGia", param).ToString());
             return result;
         }
+
+        [Route("kiem-tra-theo-doi")]
+        [HttpGet]
+        public int KiemTraTheoDoi(int nguoiDungId, int tacGiaId)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>
+            {
+                {"NguoiDungId", nguoiDungId},
+                {"TacGiaId", tacGiaId }
+            };
+
+            int result = int.Parse(Database.Database.ExecuteCommand("KiemTraTonTaiTDTG", param).ToString());
+            return result;
+        }
     }
 }
