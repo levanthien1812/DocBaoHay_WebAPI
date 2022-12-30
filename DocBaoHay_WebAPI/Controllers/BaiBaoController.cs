@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace DocBaoHay_WebAPI.Controllers
 {
@@ -26,6 +27,20 @@ namespace DocBaoHay_WebAPI.Controllers
             }
         }
 
+        public DataTable AddKhoangTGColumn (DataTable table)
+        {
+            table.Columns.Add("KhoangTG", typeof(String));
+            foreach (DataRow res in table.Rows)
+            {
+                Dictionary<string, object> baiBaoId = new Dictionary<string, object>
+                    {
+                        {"baiBaoId", int.Parse(res["Id"].ToString()) }
+                    };
+                res["KhoangTG"] = Database.Database.ExecuteCommand("TinhKhoangThoiGian", baiBaoId, 2).ToString();
+            }
+            return table;
+        }
+
         [Route("", Name = "GetBaiBaoByChuDe")]
         [HttpGet]
         public IHttpActionResult getBaiBaoByChuDe(int ChuDe)
@@ -37,15 +52,7 @@ namespace DocBaoHay_WebAPI.Controllers
                     { "ChuDeId", ChuDe }
                 };
                 DataTable result = Database.Database.ReadTable("SelectBaiBaoByChuDe", param);
-                result.Columns.Add("KhoangTG", typeof(String));
-                foreach (DataRow res in result.Rows)
-                {
-                    Dictionary<string, object> baiBaoId = new Dictionary<string, object>
-                    {
-                        {"baiBaoId", int.Parse(res["Id"].ToString()) }
-                    };
-                    res["KhoangTG"] = Database.Database.ExecuteCommand("TinhKhoangThoiGian", baiBaoId, 2).ToString();
-                }
+                result = AddKhoangTGColumn(result);
 
                 return Ok(result);
             }
@@ -71,6 +78,25 @@ namespace DocBaoHay_WebAPI.Controllers
             catch
             {
                 return NotFound();
+            }
+        }
+
+        [Route("doc")]
+        [HttpPost]
+        public int ThemBaiBaoDaDoc(int nguoiDungId, int baiBaoId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId},
+                    { "BaiBaoId", baiBaoId }
+                };
+                int result = int.Parse(Database.Database.ExecuteCommand("ThemBaiBaoDaDoc", param).ToString());
+                return result;
+            } catch
+            {
+                return -1;
             }
         }
     }

@@ -105,5 +105,25 @@ namespace DocBaoHay_WebAPI.Controllers
                 return -1;
             }
         }
+
+        [Route("{nguoiDungId}/bao-da-doc")]
+        [HttpGet]
+        public IHttpActionResult GetRecentNews(int nguoiDungId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId }
+                };
+                DataTable result = Database.Database.ReadTable("SelectBaiBaoDaDoc", param);
+                result = (new BaiBaoController()).AddKhoangTGColumn(result);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }
