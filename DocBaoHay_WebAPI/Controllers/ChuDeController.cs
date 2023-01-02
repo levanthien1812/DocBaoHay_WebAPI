@@ -26,5 +26,35 @@ namespace DocBaoHay_WebAPI.Controllers
                 return NotFound();
             }
         }
+
+        [Route("theo-doi", Name = "ThemTheoDoiChuDe")]
+        [HttpPost]
+        public int ThemTheoDoiChuDe(int nguoiDungId, int chuDeId)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>
+            {
+                {"NguoiDungId", nguoiDungId},
+                {"ChuDeId", chuDeId }
+            };
+
+            int result = int.Parse(Database.Database.ExecuteCommand("ThemTheoDoiChuDe", param).ToString());
+            return result;
+        }
+
+        [Route("kiem-tra-theo-doi")]
+        [HttpGet]
+        public int KiemTraTheoDoi(int nguoiDungId, int chuDeId)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>
+            {
+                {"NguoiDungId", nguoiDungId},
+                {"ChuDeId", chuDeId }
+            };
+
+            int result = int.Parse(Database.Database.ExecuteCommand("KiemTraTonTaiTDCD", param).ToString());
+            return result;
+        }
     }
+
+
 }

@@ -99,5 +99,25 @@ namespace DocBaoHay_WebAPI.Controllers
                 return -1;
             }
         }
+
+        [Route("luu")]
+        [HttpPost]
+        public int ThemBaiBaoDaLuu(int nguoiDungId, int baiBaoId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId},
+                    { "BaiBaoId", baiBaoId }
+                };
+                int result = int.Parse(Database.Database.ExecuteCommand("ThemLuuBaiBao", param).ToString());
+                return result;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
     }
 }

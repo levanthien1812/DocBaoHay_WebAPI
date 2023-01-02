@@ -79,7 +79,7 @@ namespace DocBaoHay_WebAPI.Controllers
                 {
                     { "NguoiDungId", nguoiDungId }
                 };
-                DataTable result = Database.Database.ReadTable("TimTacGiaTheoDoi", param);
+                DataTable result = Database.Database.ReadTable("TimChuDeTheoDoi", param);
                 return Ok(result);
             } catch
             {
@@ -96,11 +96,50 @@ namespace DocBaoHay_WebAPI.Controllers
                 Dictionary<string, object> param = new Dictionary<string, object>
                 {
                     { "NguoiDungId", nguoiDungId },
-                    { "TacGiaId" , tacGiaId }
+                    { "ChuDeId" , tacGiaId }
                 };
-                Database.Database.ExecuteCommand("XoaTheoDoiTacGia", param);
+                Database.Database.ExecuteCommand("XoaTheoDoiChuDe", param);
                 return 1;
             } catch
+            {
+                return -1;
+            }
+        }
+
+        [Route("{nguoiDungId}/theo-doi/chu-de")]
+        [HttpGet]
+        public IHttpActionResult GetFollowedTopics(int nguoiDungId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId }
+                };
+                DataTable result = Database.Database.ReadTable("TimChuDeTheoDoi", param);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("{nguoiDungId}/theo-doi/chu-de/{chuDeId}")]
+        [HttpDelete]
+        public int UnfollowedTopics(int nguoiDungId, int chuDeId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId },
+                    { "ChuDeId" , chuDeId }
+                };
+                Database.Database.ExecuteCommand("XoaTheoDoiChuDe", param);
+                return 1;
+            }
+            catch
             {
                 return -1;
             }
@@ -123,6 +162,45 @@ namespace DocBaoHay_WebAPI.Controllers
             catch
             {
                 return NotFound();
+            }
+        }
+
+        [Route("{nguoiDungId}/bao-da-luu")]
+        [HttpGet]
+        public IHttpActionResult GetSavedNews(int nguoiDungId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId }
+                };
+                DataTable result = Database.Database.ReadTable("SelectBaiBaoDaLuu", param);
+                result = (new BaiBaoController()).AddKhoangTGColumn(result);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("{nguoiDungId}/bao-da-doc")]
+        [HttpDelete]
+        public int XoaCacBaiBaoDaDoc(int nguoiDungId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nguoiDungId}
+                };
+                int result = int.Parse(Database.Database.ExecuteCommand("XoaCacBaiBaoDaDoc", param).ToString());
+                return result;
+            }
+            catch
+            {
+                return -1;
             }
         }
     }
