@@ -79,7 +79,7 @@ namespace DocBaoHay_WebAPI.Controllers
                 {
                     { "NguoiDungId", nguoiDungId }
                 };
-                DataTable result = Database.Database.ReadTable("TimChuDeTheoDoi", param);
+                DataTable result = Database.Database.ReadTable("TimTacGiaTheoDoi", param);
                 return Ok(result);
             } catch
             {
@@ -96,9 +96,9 @@ namespace DocBaoHay_WebAPI.Controllers
                 Dictionary<string, object> param = new Dictionary<string, object>
                 {
                     { "NguoiDungId", nguoiDungId },
-                    { "ChuDeId" , tacGiaId }
+                    { "TacGiaId" , tacGiaId }
                 };
-                Database.Database.ExecuteCommand("XoaTheoDoiChuDe", param);
+                Database.Database.ExecuteCommand("XoaTheoDoiTacGia", param);
                 return 1;
             } catch
             {
@@ -185,7 +185,7 @@ namespace DocBaoHay_WebAPI.Controllers
             }
         }
 
-        [Route("{nguoiDungId}/bao-da-doc")]
+        [Route("{nguoiDungId}/bao-da-doc/xoa")]
         [HttpDelete]
         public int XoaCacBaiBaoDaDoc(int nguoiDungId)
         {
@@ -195,7 +195,7 @@ namespace DocBaoHay_WebAPI.Controllers
                 {
                     { "NguoiDungId", nguoiDungId}
                 };
-                int result = int.Parse(Database.Database.ExecuteCommand("XoaCacBaiBaoDaDoc", param).ToString());
+                int result = int.Parse(Database.Database.ExecuteCommand("XoaCacBaiBaoDaDoc", param, 1).ToString());
                 return result;
             }
             catch

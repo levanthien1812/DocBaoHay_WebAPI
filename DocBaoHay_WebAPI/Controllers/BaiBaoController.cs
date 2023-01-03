@@ -27,6 +27,26 @@ namespace DocBaoHay_WebAPI.Controllers
             }
         }
 
+        [Route("cho-ban", Name = "GetBaiBaoChoBan")]
+        [HttpGet]
+        public IHttpActionResult getBaiBaoChoBan(int nguoiDungId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    {"NguoiDungId", nguoiDungId }
+                };
+                DataTable result = Database.Database.ReadTable("SelectBaiBaoChoBan", param);
+                result = AddKhoangTGColumn(result);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         public DataTable AddKhoangTGColumn (DataTable table)
         {
             table.Columns.Add("KhoangTG", typeof(String));
@@ -73,7 +93,7 @@ namespace DocBaoHay_WebAPI.Controllers
                     { "BaiBaoId", baiBaoId }
                 };
                 DataTable result = Database.Database.ReadTable("SelectBaiBao", param);
-                return Ok(result);
+                return Ok(result.Rows[0].Table);
             }
             catch
             {
@@ -117,6 +137,62 @@ namespace DocBaoHay_WebAPI.Controllers
             catch
             {
                 return -1;
+            }
+        }
+
+        [Route("kiem-tra-luu")]
+        [HttpGet]
+        public int KiemTraLuu(int nguoiDungId, int baiBaoId)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>
+            {
+                {"NguoiDungId", nguoiDungId},
+                {"BaiBaoId", baiBaoId }
+            };
+
+            int result = int.Parse(Database.Database.ExecuteCommand("KiemTraTonTaiLBB", param).ToString());
+            return result;
+        }
+
+        [Route("tim-kiem")]
+        [HttpGet]
+
+        public IHttpActionResult TimKiem(string tuKhoa)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "TuKhoa", tuKhoa },
+                    { "Loai", 1 }
+                };
+                DataTable result = Database.Database.ReadTable("TimKiem", param);
+                result = AddKhoangTGColumn(result);
+
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("{baiBaoId}/doan-van")]
+        [HttpGet]
+        public IHttpActionResult getDoanVan(int baiBaoId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "BaiBaoId", baiBaoId }
+                };
+                DataTable result = Database.Database.ReadTable("SelectDoanVan", param);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
             }
         }
     }

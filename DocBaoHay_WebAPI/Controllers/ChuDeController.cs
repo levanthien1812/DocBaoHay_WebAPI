@@ -55,6 +55,4 @@ namespace DocBaoHay_WebAPI.Controllers
             return result;
         }
     }
-
-
 }
