@@ -203,5 +203,28 @@ namespace DocBaoHay_WebAPI.Controllers
                 return -1;
             }
         }
+
+        [Route("cap-nhat")]
+        [HttpPost]
+        public int CapNhatTaiKhoan(NguoiDung nd)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    { "NguoiDungId", nd.ID},
+                    {"HoTenMoi", nd.HoTen },
+                    {"TenDangNhapMoi", nd.TenDangNhap },
+                    {"EmailMoi", nd.Email },
+                    {"MatKhauMoi", nd.MatKhau }
+                };
+                int result = int.Parse(Database.Database.ExecuteCommand("CapNhatTaiKhoan", param, 1).ToString());
+                return result;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
     }
 }

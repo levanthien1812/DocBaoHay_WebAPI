@@ -20,6 +20,7 @@ namespace DocBaoHay_WebAPI.Controllers
             try
             {
                 DataTable result = Database.Database.ReadTable("SelectBaiBaoNong");
+                result = AddKhoangTGColumn(result);
                 return Ok(result);
             } catch
             {
