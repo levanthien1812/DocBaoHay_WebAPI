@@ -11,5 +11,6 @@ namespace DocBaoHay_WebAPI.Models
         public string TenDangNhap { get; set; }
         public string Email { get; set; }
         public string MatKhau { get; set; }
+        public bool QuanTriVien { get; set; }
     }
 }

@@ -27,6 +27,25 @@ namespace DocBaoHay_WebAPI.Controllers
             }
         }
 
+        [Route("{ChuDeId}", Name = "XoaChuDe")]
+        [HttpDelete]
+        public int xoaChuDe(int chuDeId)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    {"ChuDeId", chuDeId }
+                };
+                int result = int.Parse(Database.Database.ExecuteCommand("XoaChuDe", param).ToString());
+                return result;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
         [Route("theo-doi", Name = "ThemTheoDoiChuDe")]
         [HttpPost]
         public int ThemTheoDoiChuDe(int nguoiDungId, int chuDeId)

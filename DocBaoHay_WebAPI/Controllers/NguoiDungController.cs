@@ -58,6 +58,7 @@ namespace DocBaoHay_WebAPI.Controllers
                     nd.HoTen = result.Rows[0]["HoTen"].ToString();
                     nd.Email = result.Rows[0]["Email"].ToString();
                     nd.MatKhau = result.Rows[0]["MatKhau"].ToString();
+                    nd.QuanTriVien = bool.Parse(result.Rows[0]["QuanTriVien"].ToString());
                 } else
                 {
                     nd = null;

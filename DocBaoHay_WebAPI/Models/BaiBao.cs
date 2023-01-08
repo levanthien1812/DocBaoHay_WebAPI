@@ -9,8 +9,8 @@ namespace DocBaoHay_WebAPI.Models
         public int Id { get; set; }
         public string TieuDe { get; set; }
         public string Thumbnail { get; set; }
-        public string Content { get; set; }
         public string KhoangTG { get; set; }
+        public string MoTa { get; set; }
         public int ChuDe { get; set; }
         public int TacGia { get; set; }
     }

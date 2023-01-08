@@ -11,6 +11,21 @@ namespace DocBaoHay_WebAPI.Controllers
     [RoutePrefix("api/tac-gia")]
     public class TacGiaController : ApiController
     {
+        [Route("", Name = "GetAllTacGia")]
+        [HttpGet]
+        public IHttpActionResult getAllTacGia()
+        {
+            try
+            {
+                DataTable result = Database.Database.ReadTable("SelectAllTacGia");
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         [Route("theo-doi", Name = "ThemTheoDoiTacGia")]
         [HttpPost]
         public int ThemTheoDoiChuDe(int nguoiDungId, int tacGiaId)

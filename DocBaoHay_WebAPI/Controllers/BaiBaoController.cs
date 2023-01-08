@@ -13,6 +13,45 @@ namespace DocBaoHay_WebAPI.Controllers
     [RoutePrefix("api/bai-bao")]
     public class BaiBaoController : ApiController
     {
+        [Route("", Name = "GetAllBaiBao")]
+        [HttpGet]
+        public IHttpActionResult getAllBaiBao()
+        {
+            try
+            {
+                DataTable result = Database.Database.ReadTable("SelectAllBaiBao");
+                result = AddKhoangTGColumn(result);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("", Name = "ThemBaiBao")]
+        [HttpPost]
+        public int themBaiBao(BaiBao baiBao)
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>
+                {
+                    {"TieuDe", baiBao.TieuDe },
+                    {"Thumbnail", baiBao.Thumbnail },
+                    {"MoTa", baiBao.MoTa },
+                    {"TacGia", baiBao.TacGia },
+                    {"ChuDe", baiBao.ChuDe },
+                };
+                int result = int.Parse(Database.Database.ExecuteCommand("ThemBaiBao", param).ToString());
+                return result;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
         [Route("hot", Name = "GetBaiBaoNong")]
         [HttpGet]
         public IHttpActionResult getBaiBaoNong()
